@@ -4,14 +4,15 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import {getAuth} from 'firebase/auth'
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC1-3Q_j36lbd5K0L6Cmt_Jkzr-mj8JUCA",
-  authDomain: "clique-login.firebaseapp.com",
-  projectId: "clique-login",
-  storageBucket: "clique-login.appspot.com",
-  messagingSenderId: "719510005979",
-  appId: "1:719510005979:web:deb2dca1c05f07217a44fe"
+  apiKey: "AIzaSyAPg9iS1XMonq7QRZmYPOFJKiQbvRG5Szg",
+  authDomain: "clique12-2276e.firebaseapp.com",
+  projectId: "clique12-2276e",
+  storageBucket: "clique12-2276e.appspot.com",
+  messagingSenderId: "991191537854",
+  appId: "1:991191537854:web:978e3ee9cf9f3a83c966ef"
 };
 
 // Initialize Firebase

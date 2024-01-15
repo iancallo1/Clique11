@@ -7,7 +7,7 @@ import fetchServices from '../../services/fetchServices.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase.js';
 import { useState } from "react";
-
+import firestore from '@react-native-firebase/firestore';
 
 function EntriesScreen({ navigation }) {
 
@@ -15,15 +15,8 @@ function EntriesScreen({ navigation }) {
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
 
-    const handleSubmit = async ()=>{
-        if(email && password){
-            try{
-                await createUserWithEmailAndPassword(auth, email, password);
-                navigation.navigate('Login');
-            }catch(err){
-                console.log('got error', err.message);
-            }
-        }
+    const SubmitPost = async ()=>{
+      
     }
     return (
         <LinearGradient

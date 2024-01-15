@@ -7,25 +7,51 @@ import fetchServices from '../../services/fetchServices.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase.js';
 import { useState } from "react";
-
+import { collection, addDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 function SignupScreen({ navigation }) {
-
+    const [name, setName] = useState('');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
+    const [showPass, setShowPass] = React.useState(false);
+    const [errors, setErrors] = React.useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showRePassword, setShowRePassword] = useState(false);
 
-    const handleSubmit = async ()=>{
-        if(email && password){
-            try{
-                await createUserWithEmailAndPassword(auth, email, password);
-                navigation.navigate('Login');
-            }catch(err){
-                console.log('got error', err.message);
-            }
+    const handleSubmit = async () => {
+        if (email && password) {
+          try {
+            // Create a user with Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+      
+            // Save additional user information to Firestore
+            const db = getFirestore(); 
+            const usersCollection = collection(db, 'users');
+      
+            // Add a new document with a generated ID
+            await addDoc(usersCollection, {
+              uid: user.uid,
+              name: name, // Add user's name here
+              email: email,
+              // Add any other user information you want to store
+            });
+
+            setName('');
+            setEmail('');
+            setPassword('');
+            setRepassword('');
+      
+            navigation.navigate('Login');
+          } catch (err) {
+            console.log('got error', err.message);
+          }
         }
-    }
+      }
     return (
+        
         <LinearGradient
         style={{flex: 1}} colors={[color.first, color.second]}>
             <View style={styles.container}>
@@ -36,6 +62,8 @@ function SignupScreen({ navigation }) {
             style={styles.input}
             placeholder=''
             label='Name'
+            value={name}
+            onChangeText={(value) => setName(value)}
             />
             <TextInput
             style={styles.input}
@@ -45,24 +73,36 @@ function SignupScreen({ navigation }) {
             onChangeText={value=> setEmail(value)}
         
             />
-            <TextInput
-            style={styles.input}
-            placeholder=''
-            label='Enter Password'
-            value={password}
-            onChangeText={value=> setPassword(value)}
- 
-            
+              <TextInput
+          style={styles.input}
+          placeholder=''
+          label='Password'
+          secureTextEntry={!showPassword }
+          right={
+            <TextInput.Icon
+              icon={!showPassword  ? "eye" : "eye-off"}
+              onPress={() => setShowPassword(!showPassword )}
             />
-            <TextInput
-            style={styles.input}
-            placeholder=''
-            label='Retype Password'
-            value={repassword}
-            onChangeText={value=> setRepassword(value)}
- 
-            
+          }
+          value={password}
+          onChangeText={setPassword}
+          error={errors?.password}
+        />
+             <TextInput
+          style={styles.input}
+          placeholder=''
+          label='Repassword'
+          secureTextEntry={!showRePassword}
+          right={
+            <TextInput.Icon
+              icon={!showRePassword ? "eye" : "eye-off"}
+              onPress={() => setShowRePassword(!showRePassword)}
             />
+          }
+          value={repassword}
+          onChangeText={setRepassword}
+          error={errors?.repassword}
+        />
 
             <TouchableOpacity style={styles.button1} onPress={handleSubmit}>
                 <Text style={styles.btntext1}>

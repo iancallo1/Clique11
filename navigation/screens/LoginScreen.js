@@ -22,8 +22,13 @@ function LoginScreen({ navigation }) {
 
   const handleLogin = async () => {
     if (email && password) {
+            
+           
+          
       try {
         await signInWithEmailAndPassword(auth, email, password);
+            setEmail('');
+            setPassword('');
         navigation.navigate('MainContainer');
       } catch (err) {
         console.log('got error', err.message);

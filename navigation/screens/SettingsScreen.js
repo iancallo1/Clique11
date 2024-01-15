@@ -1,17 +1,41 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native'
+import React, {useState, useEffect, useContext} from 'react';
+import { StyleSheet, 
+    Text, 
+    View, 
+    Image, 
+    ScrollView,
+    SafeAreaView,
+    Button,
+    TouchableOpacity } from 'react-native'
 import {LinearGradient} from "expo-linear-gradient";
 import color from "../../assets/colors";
+import { auth } from '../../config/firebase.js';
+import { firestore } from '@react-native-firebase/firestore';
 
-function HomeScreen(props) {
+
+function ProfileScreen(props) {
     console.log(props);
+
+    const [username, setUsername] = useState('');
+
+    
+    useEffect(() => {
+  const fetchUserData = async () => {
+    const userDoc = await firestore().collection('users').doc(/**/).get();
+    const userData = userDoc.data();
+    setUsername(userData.username); // Assuming you have a 'username' state variable
+  };
+
+  fetchUserData();
+}, []);
+
 
     return (
         <LinearGradient
         style={{flex: 1}} colors={[color.second, color.white]}>
 
         <View style={styles.container}>
-            <Text style={styles.head}>Hello There!</Text>
+            <Text style={styles.head}>Hello! {username}! </Text>
             <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
             eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
             <Text style={styles.text}>Ut enim ad minim veniam, quis 
@@ -66,4 +90,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-export default HomeScreen;
+export default ProfileScreen;

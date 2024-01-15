@@ -11,6 +11,7 @@ import RecoveryScreen from './navigation/screens/RecoveryScreen';
 import useAuth from './hooks/useAuth';
 import CliqueExperiment from './navigation/screens/CliqueExperiment';
 import MainContainer from './navigation/MainContainer'
+import ChatScreen from './navigation/screens/ChatScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name='Recovery' component={RecoveryScreen} />
             <Stack.Screen options={{ headerShown: false }} name='Clique' component={CliqueExperiment} />
             <Stack.Screen options={{ headerShown: false }} name='MainContainer' component={MainContainer} />
+            <Stack.Screen options={{ headerShown: false }} name='Chat' component={ChatScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
