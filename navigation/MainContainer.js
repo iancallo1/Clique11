@@ -6,12 +6,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Home from './screens/HomeScreen';
 import Add from './screens/EntriesScreen';
 import Settings from './screens/SettingsScreen';
-import Chat from './screens/ChatScreen';
+import Message from './screens/MessageScreen';
 // Screen names
 const homeName = "Home";
 const detailsName = "Clique In";
 const settingsName = "Settings";
-const ChatName = "Chat";
+const MessageName = "Message";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,9 +31,9 @@ function MainContainer() {
             iconName = focused ? 'add-circle' : 'add-circle-outline';
           } else if (rn === settingsName) {
             iconName = focused ? 'person' : 'person-outline';
-          } else if (rn === ChatName) {
+          } else if (rn === MessageName) {
             iconName = focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline';
-          }
+          } 
 
           // You can return any component that you like here!
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -47,7 +47,7 @@ function MainContainer() {
       }}>
 
       <Tab.Screen options={{ headerShown: false }}  name={homeName} component={Home} />
-      <Tab.Screen options={{ headerShown: false }}  name={ChatName} component={Chat} />
+      <Tab.Screen options={{ headerShown: false }}  name={MessageName} component={Message} />
       <Tab.Screen options={{ headerShown: false }}  name={detailsName} component={Add} />
       <Tab.Screen options={{ headerShown: false }}  name={settingsName} component={Settings} />
 

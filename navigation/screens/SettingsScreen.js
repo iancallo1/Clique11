@@ -1,56 +1,67 @@
-import React, {useState, useEffect, useContext} from 'react';
-import { StyleSheet, 
-    Text, 
-    View, 
-    Image, 
-    ScrollView,
-    SafeAreaView,
-    Button,
-    TouchableOpacity } from 'react-native'
-import {LinearGradient} from "expo-linear-gradient";
-import color from "../../assets/colors";
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  ScrollView,
+  SafeAreaView,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
+import { LinearGradient } from'expo-linear-gradient';
+import color from '../../assets/colors';
 import { auth } from '../../config/firebase.js';
 import { firestore } from '@react-native-firebase/firestore';
-
-
 function ProfileScreen(props) {
-    console.log(props);
+  console.log(props);
 
-    const [username, setUsername] = useState('');
+  const [username, setUsername] = useState('');
 
-    
-    useEffect(() => {
-  const fetchUserData = async () => {
-    const userDoc = await firestore().collection('users').doc(/**/).get();
-    const userData = userDoc.data();
-    setUsername(userData.username); // Assuming you have a 'username' state variable
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userDoc = await firestore().collection('users').doc(/**/).get();
+      const userData = userDoc.data();
+      setUsername(userData.username);
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      console.log('User signed out successfully');
+      // Redirect to login screen or other appropriate page
+      props.navigation.navigate('Login');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
-  fetchUserData();
-}, []);
+  return (
+    <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
+      <View style={styles.container}>
+        <Text style={styles.head}>Hello! {username}!</Text>
+        <Text style={styles.text}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Text>
+        <Text style={styles.text}>
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </Text>
 
 
-    return (
-        <LinearGradient
-        style={{flex: 1}} colors={[color.second, color.white]}>
-
-        <View style={styles.container}>
-            <Text style={styles.head}>Hello! {username}! </Text>
-            <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-            <Text style={styles.text}>Ut enim ad minim veniam, quis 
-            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
-
-          
-
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
-                <Text style={styles.btntext}>
-                    Log Out
-                </Text>
-            </TouchableOpacity>
-        </View>
-        </LinearGradient>
-    );
+        
+<TouchableOpacity
+ 
+style={styles.button} onPress={handleLogout}>
+          <Text style={styles.btntext}>Log Out</Text>
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
+  );
 }
 const styles = StyleSheet.create({
   container: {
