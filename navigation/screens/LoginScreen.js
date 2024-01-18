@@ -5,7 +5,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import color from "../../assets/colors";
 import { TextInput } from "react-native-paper";
 import { getAuth, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth } from '../../config/firebase.js';
 
 
