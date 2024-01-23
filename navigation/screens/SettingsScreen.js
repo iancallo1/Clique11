@@ -32,7 +32,6 @@ function ProfileScreen(props) {
     try {
       await auth.signOut();
       console.log('User signed out successfully');
-      // Redirect to login screen or other appropriate page
       props.navigation.navigate('Login');
     } catch (error) {
       console.error('Error signing out:', error);
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 16,
     padding: 20,
-    justifyContent: 'center', // Center the content vertically
+    justifyContent: 'center', 
   },
   head: {
     fontFamily: 'sans-serif',

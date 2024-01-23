@@ -1,6 +1,8 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useLayoutEffect, useCallback} from 'react';
 import {View, ScrollView, Text, Button, StyleSheet} from 'react-native';
 import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
+import {collection, addDoc,orderBy,query,onSnapshot} from 'firebase/firestore';
+import {auth, database} from '../../config/firebase'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -8,35 +10,33 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-      {
-        _id: 2,
-        text: 'Hello world',
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
-  }, []);
+ useLayoutEffect (()=> {
+    const collectionRef = collection(database, 'chats');
+    const q = query(collectionRef, orderBy('createdAt','desc'));
+
+    const unsubscribe = onSnapshot (q, snapshot => {
+      console.log('snapshot', snapshot.docs.length, 'documents');
+      setMessages(
+          snapshot.docs.map(doc => ({
+            _id: doc.id,
+            createdAt: doc.data().createdAt.toDate(),
+            text: doc.data().text,
+            user: doc.data().user
+          }))
+      );
+    });
+    return () => unsubscribe();
+ }, []);
 
   const onSend = useCallback((messages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages),
-    );
+    setMessages((previousMessages) =>GiftedChat.append(previousMessages, messages));
+    const { _id, createdAt,text,user} = messages[0];
+    addDoc(collection(database,'chats'),{
+      _id,
+      createdAt,
+      text,
+      user
+    });
   }, []);
 
   const renderSend = (props) => {
@@ -59,18 +59,34 @@ const ChatScreen = () => {
   const renderBubble = (props) => {
     return (
       <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: '#2e64e5',
-          },
-        }}
-        textStyle={{
-          right: {
-            color: '#fff',
-          },
-        }}
-      />
+      {...props}
+      wrapperStyle={{
+        left: {
+          backgroundColor: '#808080', 
+        },
+        right: {
+          backgroundColor: '#2e64e5', 
+        },
+      }}
+      textStyle={{
+        left: {
+          color: '#fff', // Set the text color for received messages
+        },
+        right: {
+          color: '#fff', // Set the text color for sent messages
+        },
+      }}
+    >
+      {/* Display sender's email address for all messages */}
+      {props.position === 'left' && (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={{ color: '#fff', fontSize: 12, marginRight: 5 }}>{props.currentMessage.user._id}</Text>
+          {props.children}
+        </View>
+      )}
+      {props.position === 'right' && props.children}
+    </Bubble>
+    
     );
   };
 
@@ -83,9 +99,9 @@ const ChatScreen = () => {
   return (
     <GiftedChat
       messages={messages}
-      onSend={(messages) => onSend(messages)}
+      onSend={messages => onSend(messages)}
       user={{
-        _id: 1,
+        _id: auth?.currentUser?.email
       }}
       renderBubble={renderBubble}
       alwaysShowSend
