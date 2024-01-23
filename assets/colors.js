@@ -1,8 +1,8 @@
 const color = {
     white: "#FFFFFF",
     black: "#222222",
-    first: "#164863",
-    second: "#427D9D",
+    first: "#DEEBE4",
+    second: "#00B8A9",
     third: "#9BBEC8",
     fourth: "#DDF2FD",
     grey: "#CCCCCC"

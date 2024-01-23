@@ -13,6 +13,10 @@ import CliqueExperiment from './navigation/screens/CliqueExperiment';
 import MainContainer from './navigation/MainContainer'
 import ChatScreen from './navigation/screens/ChatScreen';
 import MessagesScreen from './navigation/screens/MessageScreen';
+import Chat1Screen from './navigation/screens/chat_screens/Chat1Screen';
+import Chat2Screen from './navigation/screens/chat_screens/Chat2Screen';
+import Chat3Screen from './navigation/screens/chat_screens/Chat3Screen';
+import Chat4Screen from './navigation/screens/chat_screens/Chat4Screen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -41,7 +45,11 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name='Clique' component={CliqueExperiment} />
             <Stack.Screen options={{ headerShown: false }} name='MainContainer' component={MainContainer} />
             <Stack.Screen options={{ headerShown: false }} name='Message' component={MessagesScreen} />
-             <Stack.Screen options={{ headerShown: false }} name='Chat' component={ChatScreen} />
+            <Stack.Screen name='General Chat' component={ChatScreen} />
+            <Stack.Screen name='SE Chat' component={Chat1Screen} />
+            <Stack.Screen name='IOT Chat' component={Chat2Screen} />
+            <Stack.Screen name='MobProg Chat' component={Chat3Screen} />
+            <Stack.Screen name='Database 2 Chat' component={Chat4Screen} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

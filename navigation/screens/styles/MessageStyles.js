@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.View`
   flex: 1;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 20px;
   align-items: center;
+  justify-content: center;
   background-color: #ffffff;
 `;
 
@@ -18,8 +18,7 @@ export const UserInfo = styled.View`
 `;
 
 export const UserImgWrapper = styled.View`
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-vertical: 15px;
 `;
 
 export const UserImg = styled.Image`
@@ -31,10 +30,10 @@ export const UserImg = styled.Image`
 export const TextSection = styled.View`
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start; /* Align text to the left */
   padding: 15px;
-  padding-left: 0;
-  margin-left: 10px;
-  width: 300px;
+  margin-top: 10px;
+  width: 100%; /* Adjust the width as needed */
   border-bottom-width: 1px;
   border-bottom-color: #cccccc;
 `;

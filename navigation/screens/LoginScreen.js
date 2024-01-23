@@ -37,64 +37,62 @@ function LoginScreen({ navigation }) {
     }
   };
 
-  return (
-    <LinearGradient
-      style={{ flex: 1 }} colors={[color.white, color.second]}>
-        <KeyboardAvoidingView
-        behavior={Platform.OS === 'android' ? 'padding' : 'height'}
-        style={{ flex: 1, justifyContent: 'center' }}
-      >
+  // Inside your LoginScreen component
+return (
+  <LinearGradient style={{ flex: 1 }} colors={[color.first, color.second]}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'android' ? 'padding' : 'height'}
+      style={{ flex: 1, justifyContent: 'center' }}
+    >
       <View style={styles.container}>
-        <Text style={styles.head}>Log In</Text>
-        <Text style={styles.text}>welcome back!</Text>
+  <View style={styles.logoContainer}>
+    <Text style={styles.logoText}>.Clique</Text>
+  </View>
+  <Text style={styles.head}>Log In</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder=''
-          label='Email'
-          value={email}
-          onChangeText={setEmail}
-          error={errors?.email}
+  <View style={styles.inputContainer}>
+    <TextInput
+      style={styles.input}
+      placeholder=''
+      label='Email'
+      value={email}
+      onChangeText={setEmail}
+      error={errors?.email}
+    />
+    <TextInput
+      style={styles.input}
+      placeholder=''
+      label='Password'
+      secureTextEntry={!showPass}
+      right={
+        <TextInput.Icon
+          icon={!showPass ? "eye" : "eye-off"}
+          onPress={() => setShowPass(!showPass)}
         />
-        <TextInput
-          style={styles.input}
-          placeholder=''
-          label='Password'
-          secureTextEntry={!showPass}
-          right={
-            <TextInput.Icon
-              icon={!showPass ? "eye" : "eye-off"}
-              onPress={() => setShowPass(!showPass)}
-            />
-          }
-          value={password}
-          onChangeText={setPassword}
-          error={errors?.password}
-        />
+      }
+      value={password}
+      onChangeText={setPassword}
+      error={errors?.password}
+    />
+    <TouchableOpacity style={styles.button1} onPress={handleLogin}>
+    <Text style={styles.btntext1}>Log In</Text>
+  </TouchableOpacity>
 
-       
+  <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Recovery')}>
+    <Text style={styles.btntext2}>Forgot Password?</Text>
+  </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button1} onPress={handleLogin}>
-          <Text style={styles.btntext1}>
-            Log In
-          </Text>
-        </TouchableOpacity>
+  <TouchableOpacity style={styles.button3} onPress={() => navigation.navigate('Landing')}>
+    <Text style={styles.btntext2}>Go Back</Text>
+  </TouchableOpacity>
+  </View>
 
-           <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Recovery')}>
-          <Text style={styles.btntext2}>
-            Forgot Password?
-          </Text>
-        </TouchableOpacity>
+  
+</View>
+    </KeyboardAvoidingView>
+  </LinearGradient>
+);
 
-        <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Landing')}>
-          <Text style={styles.btntext2}>
-            Go Back
-          </Text>
-        </TouchableOpacity>
-      </View>
-      </KeyboardAvoidingView>
-    </LinearGradient>
-  );
 }
 
 
@@ -103,13 +101,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 16,
     padding: 20, // Increased padding
+    
   },
   head: {
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 50,
+    fontSize: 40,
     color: 'black',
-    textAlign: 'center',
+    textAlign: 'right',
     margin: 20,
   },
     text: {
@@ -120,26 +119,41 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     button1: {
-        backgroundColor: '#164863',
-        borderRadius: 6,
-        paddingVertical: 8,
+        backgroundColor: '#00B8A9',
+        paddingVertical: 10,
+        paddingHorizontal: 120,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 8,
+        marginTop: 100,
         marginLeft: 100,
         marginRight: 100,
+        borderRadius: 6,
     },
     button2: {
-        backgroundColor: '#427D9D',
-        borderRadius: 6,
-        paddingVertical: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginTop: 25,
-        marginLeft: 100,
-        marginRight: 100,
+      backgroundColor: '#00B8A9',
+      paddingVertical: 11,
+    paddingHorizontal: 84,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      marginTop: 20,
+      marginLeft: 100,
+      marginRight: 100,
+      borderRadius: 6,
+    },
+
+    button3: {
+      backgroundColor: '#00B8A9',
+      paddingVertical: 10,
+    paddingHorizontal: 120,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      marginTop: 20,
+      marginLeft: 100,
+      marginRight: 100,
+      borderRadius: 6,
     },
     btntext1: {
         fontFamily: 'sans-serif',
@@ -150,22 +164,38 @@ const styles = StyleSheet.create({
     },
     btntext2: {
         fontFamily: 'sans-serif',
-        fontSize: 10,
+        fontSize: 15,
         fontWeight: 'bold',
         color: 'white',
         textAlign: 'center'
     },
+    inputContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     input: {
-        paddingVertical: 2,
-        paddingHorizontal: 8,
-        borderWidth: 3, 
-        borderColor: '#9BBEC8', 
-        borderRadius: 6,
-        margin: 8,
-        fontFamily: 'sans-serif',
-        fontSize: 20, 
-        backgroundColor: 'white',
-    }
+      width: '100%', // Make TextInput take full width
+      paddingVertical: 2,
+      paddingHorizontal: 8,
+      borderWidth: 3,
+      borderColor: '#9BBEC8',
+      borderRadius: 6,
+      marginVertical: 8,
+      fontFamily: 'sans-serif',
+      fontSize: 20,
+      backgroundColor: 'white',
+    },
+    logoContainer: {
+      position: 'absolute',
+      top: 50, 
+      left: 5,
+  },
+  logoText: {
+      fontSize: 30,
+      color: 'black',
+      fontFamily: 'sans-serif', 
+  },
 });
 
 export default LoginScreen;

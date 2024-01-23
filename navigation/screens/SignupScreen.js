@@ -55,8 +55,11 @@ function SignupScreen({ navigation }) {
         <LinearGradient
         style={{flex: 1}} colors={[color.first, color.second]}>
             <View style={styles.container}>
+              <View style={styles.logoContainer}>
+            <Text style={styles.logoText}>.Clique</Text>
+            </View>
                 <Text style={styles.head}>Sign Up</Text>
-                <Text style={styles.text}>hello there stranger!</Text>
+                <Text style={styles.text}>Hello there stranger!</Text>
             
             <TextInput
             style={styles.input}
@@ -122,27 +125,26 @@ function SignupScreen({ navigation }) {
 }
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 16,
-        padding: 20,
-        marginTop: 20,
+      flex: 1,
+      marginHorizontal: 16,
+      padding: 20,
     },
     head: {
-        fontFamily: 'sans-serif',
-        fontWeight: 'bold',
-        fontSize: 50,
-        color: 'white',
-        textAlign: 'center',
-        marginTop: 40,
-        margin: 20,
+      fontFamily: 'sans-serif',
+      fontWeight: 'bold',
+      fontSize: 40,
+      color: 'black',
+      textAlign: 'right',
+      margin: 20,
     },
     text: {
-        fontSize: 20,
-        color: 'white',
+        fontSize: 25,
+        color: 'black',
         textAlign: 'center',
-        margin: 10,
+        margin: 85,
     },
     button1: {
-        backgroundColor: '#164863',
+        backgroundColor: '#00B8A9',
         borderRadius: 6,
         paddingVertical: 12,
         alignItems: 'center',
@@ -153,7 +155,7 @@ const styles = StyleSheet.create({
         marginRight: 100,
     },
     button2: {
-        backgroundColor: '#9BBEC8',
+        backgroundColor: '#00B8A9',
         borderRadius: 6,
         paddingVertical: 12,
         alignItems: 'center',
@@ -174,8 +176,13 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif',
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#164863',
+        color: 'white',
         textAlign: 'center'
+    },
+    inputContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     input: {
         paddingVertical: 2,
@@ -187,7 +194,17 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif',
         fontSize: 20, 
         backgroundColor: 'white',
-    }
+      },
+      logoContainer: {
+        position: 'absolute',
+        top: 50, 
+        left: 5,
+    },
+    logoText: {
+        fontSize: 30,
+        color: 'black',
+        fontFamily: 'sans-serif', 
+    },
 });
 
 export default SignupScreen;

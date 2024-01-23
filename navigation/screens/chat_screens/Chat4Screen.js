@@ -2,16 +2,16 @@ import React, {useState, useEffect, useLayoutEffect, useCallback} from 'react';
 import {View, ScrollView, Text, Button, StyleSheet} from 'react-native';
 import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
 import {collection, addDoc,orderBy,query,onSnapshot} from 'firebase/firestore';
-import {auth, database} from '../../config/firebase'
+import {auth, database} from '../../../config/firebase'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
-const ChatScreen = () => {
+const Chat4Screen = () => {
   const [messages, setMessages] = useState([]);
 
  useLayoutEffect (()=> {
-    const collectionRef = collection(database, 'chats');
+    const collectionRef = collection(database, 'chat4');
     const q = query(collectionRef, orderBy('createdAt','desc'));
 
     const unsubscribe = onSnapshot (q, snapshot => {
@@ -31,7 +31,7 @@ const ChatScreen = () => {
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>GiftedChat.append(previousMessages, messages));
     const { _id, createdAt,text,user} = messages[0];
-    addDoc(collection(database,'chats'),{
+    addDoc(collection(database,'chat4'),{
       _id,
       createdAt,
       text,
@@ -113,7 +113,7 @@ const ChatScreen = () => {
   );
 };
 
-export default ChatScreen;
+export default Chat4Screen;
 
 const styles = StyleSheet.create({
   container: {

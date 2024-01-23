@@ -24,6 +24,7 @@ function EntriesScreen({ navigation }) {
             <View style={styles.container}>
                 <Text style={styles.head}>Be Clique!</Text>
                 <Text style={styles.text}>Post Your Group as a Clique!</Text>
+                
             
             <TextInput
             style={styles.input}
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     container: {
         marginHorizontal: 16,
         padding: 20,
-        marginTop: 10,
+        marginTop: 200,
     },
     head: {
         fontFamily: 'sans-serif',
@@ -91,18 +92,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     button1: {
-        backgroundColor: '#164863',
-        borderRadius: 6,
-        paddingVertical: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginTop: 25,
-        marginLeft: 100,
-        marginRight: 100,
-    },
-    button2: {
-        backgroundColor: '#9BBEC8',
+        backgroundColor: '#00B8A9',
         borderRadius: 6,
         paddingVertical: 12,
         alignItems: 'center',
@@ -117,13 +107,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'white',
-        textAlign: 'center'
-    },
-    btntext2: {
-        fontFamily: 'sans-serif',
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#164863',
         textAlign: 'center'
     },
     input: {

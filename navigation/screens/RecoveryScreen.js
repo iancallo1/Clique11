@@ -9,11 +9,11 @@ function RecoveryScreen(props) {
 
     return (
         <LinearGradient
-        style={{flex: 1}} colors={[color.first, color.third]}>
+        style={{flex: 1}} colors={[color.second, color.white]}>
 
         <View style={styles.container}>
-            <Text style={styles.head}>Recover your account</Text>
-            <Text style={styles.text}>a password reset will sent to your email</Text>
+            <Text style={styles.head}>Recover Your Account</Text>
+            <Text style={styles.text}>A password reset will sent to your email.</Text>
 
             <TextInput
             style={styles.input}
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     container: {
         marginHorizontal: 16,
         padding: 20,
-        marginTop: 20,
+        marginTop: 80,
     },
     head: {
         fontFamily: 'sans-serif',
@@ -43,24 +43,24 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         marginTop: 180,
-        marginBottom: 20,
+        marginBottom: 15,
     },
     text: {
         fontFamily: 'sans-serif',
         fontSize: 20,
         color: 'white',
         textAlign: 'center',
-        marginTop: 15,
-        marginBottom: 15,
+        marginTop: 10,
+        marginBottom: 40,
     },
     button: {
-        backgroundColor: '#164863',
+        backgroundColor: '#00B8A9',
         borderRadius: 6,
         paddingVertical: 12,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 25,
+        marginTop: 30,
         marginLeft: 100,
         marginRight: 100,
     },
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     input: {
         paddingVertical: 2,
         paddingHorizontal: 8,
-        borderWidth: 3, 
-        borderColor: '#9BBEC8', 
+        borderWidth: 2, 
+        borderColor: 'black', 
         borderRadius: 6,
         margin: 8,
         fontFamily: 'sans-serif',

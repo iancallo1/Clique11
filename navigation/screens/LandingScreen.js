@@ -10,8 +10,9 @@ function LandingScreen(props) {
         style={{flex: 1}} colors={[color.second, color.white]}>
 
         <View style={styles.container}>
-            <Text style={styles.head}>Blues!</Text>
-            <Text style={styles.text}>where all you can find is blue</Text>
+            <Text style={styles.head}>.Clique</Text>
+            <Text style={styles.text}>we keep it simple  -  “with just a clique” </Text>
+            
 
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
                 <Text style={styles.btntext}>
@@ -37,21 +38,21 @@ const styles = StyleSheet.create({
     head: {
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
-        fontSize: 45,
+        fontSize: 80,
         color: 'black',
         textAlign: 'center',
-        marginTop: 300,
-        marginBottom: 10,
+        marginTop: 280,
+        marginBottom: 40,
     },
     text: {
         fontFamily: 'sans-serif',
         fontSize: 20,
         color: 'black',
         textAlign: 'center',
-        marginBottom: 25,
+        marginBottom: 280,
     },
     button: {
-        backgroundColor: '#164863',
+        backgroundColor: '#00B8A9',
         borderRadius: 6,
         paddingVertical: 12,
         alignItems: 'center',
