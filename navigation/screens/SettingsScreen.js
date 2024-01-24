@@ -41,6 +41,9 @@ function ProfileScreen(props) {
   return (
     <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
       <View style={styles.container}>
+         <View style={styles.logoContainer}>
+                    <Text style={styles.logoText}>.Clique</Text>
+                </View>
         <Text style={styles.head}>Hello! {username}!</Text>
         <Text style={styles.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -69,6 +72,11 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center', 
   },
+   logoContainer: {
+        position: 'absolute',
+        top: 50, 
+        left: 5,
+    },
   head: {
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
