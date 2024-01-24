@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         fontSize: 80,
         color: 'black',
         textAlign: 'center',
-        marginTop: 280,
+        marginTop: 80,
         marginBottom: 40,
     },
     text: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'black',
         textAlign: 'center',
-        marginBottom: 280,
+        marginBottom: 80,
     },
     button: {
         backgroundColor: '#00B8A9',
