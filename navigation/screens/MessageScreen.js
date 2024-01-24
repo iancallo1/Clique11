@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import color from "../../assets/colors";
 import {
   Container,
   Card,
@@ -20,8 +22,8 @@ const Messages = [
     userImg: require('../../assets/icon.png'),
     messageTime: '4 mins ago',
     messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
-      screen: 'GeneralChatScreen',
+      'General Chat for Every Student! (Wala lagi SPY we promise)',
+      screen: 'General Chat',
   },
   {
     id: '2',
@@ -29,7 +31,8 @@ const Messages = [
     userImg: require('../../assets/icon.png'),
     messageTime: '4 mins ago',
     messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
+      'Software Engineering Chat: Where bugs are just unexpected features waiting to be discovered!',
+      screen:'SE Chat',
   },
   {
     id: '3',
@@ -37,7 +40,8 @@ const Messages = [
     userImg: require('../../assets/icon.png'),
     messageTime: '4 mins ago',
     messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
+      'IOT Chat: Because talking to your toaster is more exciting than you think!',
+      screen:'IOT Chat',
   },
   {
     id: '4',
@@ -45,7 +49,8 @@ const Messages = [
     userImg: require('../../assets/icon.png'),
     messageTime: '4 mins ago',
     messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
+      'Welcome to MobProg Chat! Where mobile apps are born, bugs are squished, and developers unite!',
+      screen:'MobProg Chat',
   },
   {
     id: '5',
@@ -53,19 +58,22 @@ const Messages = [
     userImg: require('../../assets/icon.png'),
     messageTime: '4 mins ago',
     messageText:
-      'Hey there, this is my test for a post of my social app in React Native.',
+      ' Because who doesnt love a good CQL query and a cup of coffee?',
+      screen:'Database 2 Chat',
   },
  
 ];
 
 const MessagesScreen = ({navigation}) => {
     return (
+      <LinearGradient
+        style={{flex: 1}} colors={[color.second, color.white]}>
       <Container>
         <FlatList 
           data={Messages}
           keyExtractor={item=>item.id}
           renderItem={({item}) => (
-            <Card onPress={() => navigation.navigate('General Chat', {userName: item.userName})}>
+            <Card onPress={() => navigation.navigate(item.screen, { userName: item.userName })}>
               <UserInfo>
                 <UserImgWrapper>
                   <UserImg source={item.userImg} />
@@ -82,6 +90,7 @@ const MessagesScreen = ({navigation}) => {
           )}
         />
       </Container>
+      </LinearGradient>
     );
 };
 

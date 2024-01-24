@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     container: {
         marginHorizontal: 16,
         padding: 20,
-        marginTop: 200,
+        marginTop: 100,
     },
     head: {
         fontFamily: 'sans-serif',

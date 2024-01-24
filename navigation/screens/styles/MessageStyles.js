@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.View`
   flex: 1;
   padding: 20px;
+  padding-top: 90px;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+ 
 `;
 
 export const Card = styled.TouchableOpacity`
@@ -33,7 +34,7 @@ export const TextSection = styled.View`
   align-items: flex-start; /* Align text to the left */
   padding: 15px;
   margin-top: 10px;
-  width: 100%; /* Adjust the width as needed */
+  width: 88%; /* Adjust the width as needed */
   border-bottom-width: 1px;
   border-bottom-color: #cccccc;
 `;
