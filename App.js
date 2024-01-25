@@ -1,7 +1,9 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import color from "../Clique11/assets/colors";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 import LoginScreen from './navigation/screens/LoginScreen';
 import LandingScreen from './navigation/screens/LandingScreen';
@@ -17,6 +19,9 @@ import Chat1Screen from './navigation/screens/chat_screens/Chat1Screen';
 import Chat2Screen from './navigation/screens/chat_screens/Chat2Screen';
 import Chat3Screen from './navigation/screens/chat_screens/Chat3Screen';
 import Chat4Screen from './navigation/screens/chat_screens/Chat4Screen';
+import Scheduler from './navigation/screens/SchedulerScreen';
+
+const {height, width} = Dimensions.get('window');
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -45,6 +50,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name='Clique' component={CliqueExperiment} />
             <Stack.Screen options={{ headerShown: false }} name='MainContainer' component={MainContainer} />
             <Stack.Screen options={{ headerShown: false }} name='Message' component={MessagesScreen} />
+            <Stack.Screen options={{ headerShown: false }} name='Calendar' component={Scheduler} />
             <Stack.Screen name='General Chat' component={ChatScreen} />
             <Stack.Screen name='SE Chat' component={Chat1Screen} />
             <Stack.Screen name='IOT Chat' component={Chat2Screen} />
@@ -59,7 +65,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    height: hp(96),
+    backgroundColor: color.white,
   }
 });

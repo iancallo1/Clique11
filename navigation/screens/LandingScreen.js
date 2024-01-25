@@ -1,71 +1,105 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import {LinearGradient} from "expo-linear-gradient";
+import { Button, Dimensions, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import color from "../../assets/colors";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+const {height, width} = Dimensions.get('window');
 
 function LandingScreen(props) {
     console.log(props);
 
     return (
-        <LinearGradient
-        style={{flex: 1}} colors={[color.second, color.white]}>
-
         <View style={styles.container}>
-            <Text style={styles.head}>.Clique</Text>
-            <Text style={styles.text}>we keep it simple  -  “with just a clique” </Text>
-            
+            <StatusBar backgroundColor={color.first} barStyle={"light-content"}/>
+            <View style={styles.header}></View>
 
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
-                <Text style={styles.btntext}>
+            <View style={styles.main}>
+                <View style={styles.section1}>
+                    <Text style={styles.head}>.Clique</Text>
+                    <Text style={styles.text}>We keep it simple - 'JUST A CLIQUE'</Text>
+                </View>
+
+                <View style={styles.section2}>
+                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
+                    <Text style={styles.btntext}>
                     Log In
-                </Text>
-            </TouchableOpacity>
-                      
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Signup')}>
-                <Text style={styles.btntext}>
-                    Sign Up
-                </Text>
-            </TouchableOpacity>
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Signup')}>
+                    <Text style={styles.btntext}>
+                        Sign Up
+                    </Text>
+                </TouchableOpacity>
+                </View>
+            </View>
+
+            <View style={styles.footer}>
+
+            </View>            
         </View>
-        </LinearGradient>
     );
 }
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 16,
-        padding: 20,
-        marginTop: 20,
+        height: hp(100),
+    },
+    header: {
+        height: hp(10),
+        backgroundColor: color.first,
+    },
+    main: {
+        height: hp(80),
+        display: 'flex',
+        backgroundColor: color.white,
+    },
+    section1: {
+        height: hp(50),
+        backgroundColor: color.first,
+        justifyContent: 'center',
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+    },
+    section2: {
+        height: hp(30),
+        backgroundColor: color.white,
+        justifyContent: 'center',
+    },
+    footer: {
+        height: hp(10),
+        backgroundColor: color.white,
     },
     head: {
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
-        fontSize: 80,
-        color: 'black',
+        fontSize: hp(5.4),
+        color: color.black,
         textAlign: 'center',
-        marginTop: 80,
-        marginBottom: 40,
+        margin: 5,
     },
     text: {
         fontFamily: 'sans-serif',
-        fontSize: 20,
-        color: 'black',
+        fontWeight: '500',
+        fontSize: hp(2.4),
+        color: color.black,
         textAlign: 'center',
-        marginBottom: 80,
+        margin: 5,
     },
     button: {
-        backgroundColor: '#00B8A9',
-        borderRadius: 6,
+        backgroundColor: color.first,
+        borderRadius: 50,
         paddingVertical: 12,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        margin: 10,
-        marginLeft: 50,
-        marginRight: 50,
+        marginTop: hp(1.6),
+        marginLeft: 90,
+        marginRight: 90,
     },
     btntext: {
         fontFamily: 'sans-serif',
-        fontSize: 20,
-        color: '#DDF2FD',
+        fontSize: hp(2.6),
+        fontWeight: 'bold',
+        color: color.white,
         textAlign: 'center'
     }
 });

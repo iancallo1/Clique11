@@ -1,84 +1,145 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Button, TouchableOpacity, StatusBar } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 import color from "../../assets/colors";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+const {height, width} = Dimensions.get('window');
 
 function HomeScreen(props) {
     console.log(props);
 
     return (
         <LinearGradient
-            style={{ flex: 1 }} colors={[color.second, color.white]}>
+            style={{ flex: 1 }} colors={[color.first, color.white]}>
+            <StatusBar backgroundColor={color.white} barStyle={"dark-content"}/>
 
             <View style={styles.container}>
-                {/* Logo */}
-                <View style={styles.logoContainer}>
-                    <Text style={styles.logoText}>.Clique</Text>
+                <View style={styles.header}>
+                    <View style={styles.header1}>
+                        <Text style={styles.logo}>.Clique</Text>
+                    </View>
+                    <View style={styles.header2}>
+                        <Text style={styles.name}>Home</Text>
+                    </View>
                 </View>
 
-                {/* Rest of the content */}
-                <Text style={styles.head}>Hello There!</Text>
-                <Text style={styles.text}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
-                <Text style={styles.text}>Ut enim ad minim veniam, quis
-                    nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                <View style={styles.main}>
+                    <View style={styles.section1}>
+                        {/* Rest of the content */}
+                        <Text style={styles.head}>Hello There!</Text>
+                        <Text style={styles.text}>Welcome to CLIQUE! Your friend in making friends!</Text>
+                        <Text style={styles.text}>Discover circles, share ideas, meet in real life, 
+                        and really 'clique' with them!</Text>
+                    </View>
+                    <View style={styles.section2}>
+                        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Clique')}>
+                            <Text style={styles.btntext}>
+                                Start!
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Clique')}>
-                    <Text style={styles.btntext}>
-                        Start!
-                    </Text>
-                </TouchableOpacity>
+                <View style={styles.footer}></View>        
             </View>
         </LinearGradient>
     );
 }
 
 const styles = StyleSheet.create({
+    /* Container and Sections */
     container: {
-        flex: 1,
-        marginHorizontal: 16,
-        padding: 20,
+        height: hp(100),
+        backgroundColor: 'transparent',
         justifyContent: 'center', 
     },
-    logoContainer: {
-        position: 'absolute',
-        top: 50, 
-        left: 5,
+    header: {
+        height: hp(10),
+        display: 'flex',
+        flexDirection: 'row',
     },
-    logoText: {
-        fontSize: 20,
-        color: 'black',
-        fontFamily: 'sans-serif', 
+    header1: {
+        width: wp(50),
+        backgroundColor: color.white,
+        justifyContent: 'center',
+
     },
-    head: {
+    header2: {
+        width: wp(50),
+        backgroundColor: color.white,
+        justifyContent: 'center',
+
+    },
+    main: {
+        height: hp(80),
+        backgroundColor: 'transparent',
+    },
+    section1: {
+        height: hp(50),
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+    },
+    section2: {
+        height: hp(30),
+        backgroundColor: 'transparent',
+    },
+    footer: {
+        height: hp(10),
+        backgroundColor: 'transparent',
+    },
+
+    /* Header */
+    logo: {
+        fontSize: hp(3.4),
+        color: color.first,
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
-        fontSize: 45,
-        color: 'black',
-        textAlign: 'center',
-        marginBottom: 20,
-    },
-    text: {
+        textAlign: 'left',
+        marginLeft: hp(2),
+    }, 
+    name: {
+        fontSize: hp(3.4),
+        color: color.black,
         fontFamily: 'sans-serif',
-        fontSize: 20,
-        color: 'black',
+        fontWeight: 'bold',
+        textAlign: 'right',
+        marginRight: hp(2),
+    }, 
+    head: {
+        fontSize: hp(4),
+        color: color.black,
+        fontFamily: 'sans-serif',
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 15,
-        marginBottom: 15,
+        marginRight: hp(2),
+    },
+
+    /* Body */
+    text: {
+        fontSize: hp(2),
+        color: 'black',
+        fontFamily: 'sans-serif',
+        textAlign: 'center',
+        margin: hp(2),
     },
     button: {
-        backgroundColor: '#00B8A9',
-        borderRadius: 6,
+        backgroundColor: color.first,
+        borderRadius: 50,
         paddingVertical: 12,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 15,
+        flexDirection: 'row',
+        marginTop: hp(1.6),
+        marginLeft: 90,
+        marginRight: 90,
     },
     btntext: {
         fontFamily: 'sans-serif',
-        fontSize: 20,
-        color: '#DDF2FD',
-        textAlign: 'center',
+        fontSize: hp(2.6),
+        fontWeight: 'bold',
+        color: color.black,
+        textAlign: 'center'
     },
 });
 

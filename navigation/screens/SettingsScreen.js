@@ -8,26 +8,53 @@ import {
   SafeAreaView,
   Button,
   TouchableOpacity,
+  Dimensions,
+  StatusBar, 
 } from 'react-native';
 import { LinearGradient } from'expo-linear-gradient';
 import color from '../../assets/colors';
-import { auth } from '../../config/firebase.js';
-import { firestore } from '@react-native-firebase/firestore';
+import { auth, database } from '../../config/firebase.js';
+import { doc, getDoc, firestore, collection} from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+const {height, width} = Dimensions.get('window');
+
 function ProfileScreen(props) {
-  console.log(props);
-
-  const [username, setUsername] = useState('');
-
+  const [name, setName] = useState(null);
+  
   useEffect(() => {
     const fetchUserData = async () => {
-      const userDoc = await firestore().collection('users').doc(/**/).get();
-      const userData = userDoc.data();
-      setUsername(userData.username);
+      const usersCollection = collection(database, "users");
+      console.log('Auth UID:', auth.currentUser.uid);
+      const currentUserDoc = doc(usersCollection, auth.currentUser.uid);
+    
+      try {
+        const snapshot = await getDoc(currentUserDoc);
+        console.log('User Document Snapshot:', snapshot);
+  
+        if (snapshot.exists()) {
+          const userData = snapshot.data();
+          console.log('User Data:', userData);
+  
+          if (userData && userData.hasOwnProperty('name')) {
+            const userName = userData.name;
+            setName(userName);
+          } else {
+            console.log('User document does not contain a "name" field:', userData);
+          }
+        } else {
+          console.log('User data not found');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
-
+  
     fetchUserData();
   }, []);
-
+  
+  
   const handleLogout = async () => {
     try {
       await auth.signOut();
@@ -39,73 +66,144 @@ function ProfileScreen(props) {
   };
 
   return (
-    <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
+    <LinearGradient style={{ flex: 1 }} colors={[color.first, color.white]}>
       <View style={styles.container}>
-         <View style={styles.logoContainer}>
-                    <Text style={styles.logoText}>.Clique</Text>
-                </View>
-        <Text style={styles.head}>Hello! {username}!</Text>
-        <Text style={styles.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Text>
-        <Text style={styles.text}>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
-        </Text>
+      <StatusBar backgroundColor={color.white} barStyle={"dark-content"}/>
+        <View style={styles.header}>
+          <View style={styles.header1}>
+            <Text style={styles.logo}>.Clique</Text>
+          </View>
 
+          <View style={styles.header2}>
+            <Text style={styles.name}>Settings</Text>
+          </View>
+        </View>
 
-        
-<TouchableOpacity
- 
-style={styles.button} onPress={handleLogout}>
-          <Text style={styles.btntext}>Log Out</Text>
-        </TouchableOpacity>
+        <View style={styles.main}>
+          <View style={styles.section1}>
+            <Image style={styles.profileicon} source={require('../../assets/profile.png')}></Image>
+            <Text style={styles.head}>Hello {name ? name : 'user'}!</Text>
+            <Text style={styles.text}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Text>
+            <Text style={styles.text}>
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.
+            </Text>
+          </View>
+
+          <View style={styles.section2}>
+            <TouchableOpacity
+              style={styles.button1} onPress={handleLogout}>
+                <Text style={styles.btntext1}>Log Out</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.footer}></View>
       </View>
     </LinearGradient>
   );
 }
 const styles = StyleSheet.create({
+  /* Container and Sections */
   container: {
-    flex: 1,
-    marginHorizontal: 16,
-    padding: 20,
-    justifyContent: 'center', 
+    height: hp(100),
+    backgroundColor: 'transparent',
   },
-   logoContainer: {
-        position: 'absolute',
-        top: 50, 
-        left: 5,
-    },
-  head: {
+  header: {
+    height: hp(10),
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  header1: {
+    width: wp(50),
+    backgroundColor: color.white,
+    justifyContent: 'center',
+  },
+  header2: {
+    width: wp(50),
+    backgroundColor: color.white,
+    justifyContent: 'center',
+  },
+  main: {
+    height: hp(80),
+    backgroundColor: 'transparent',
+  },
+  section1: {
+    height: hp(50),
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  section2: {
+    height: hp(30),
+    backgroundColor: 'transparent',
+  },
+  footer: {
+    height: hp(10),
+    backgroundColor: color.white,
+  },
+
+  /* Header */
+  logo: {
+    fontSize: hp(3.4),
+    color: color.first,
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 45,
-    color: 'black',
+    textAlign: 'left',
+    marginLeft: hp(2),
+  }, 
+  name: {
+    fontSize: hp(3.4),
+    color: color.black,
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    textAlign: 'right',
+    marginRight: hp(2),
+  }, 
+  head: {
+    fontSize: hp(6),
+    color: color.black,
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
     textAlign: 'center',
-    marginBottom: 20,
+    justifyContent: 'center',
+    marginRight: hp(2),
   },
   text: {
     fontFamily: 'sans-serif',
-    fontSize: 20,
-    color: 'black',
+    fontSize: hp(2),
+    color: color.black,
     textAlign: 'center',
-    marginTop: 15,
-    marginBottom: 15,
+    margin: 10,
   },
-  button: {
-    backgroundColor: '#164863',
-    borderRadius: 6,
+  profileicon: {
+    width: wp(20),
+    height: hp(10),
+    margin: hp(2),
+  },
+  
+  /* Buttons */
+  button1: {
+    backgroundColor: color.white,
+    borderRadius: 50,
     paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 15,
+    flexDirection: 'row',
+    marginTop: hp(1.6),
+    marginLeft: 90,
+    marginRight: 90,
   },
-  btntext: {
+  btntext1: {
     fontFamily: 'sans-serif',
-    fontSize: 20,
-    color: '#DDF2FD',
-    textAlign: 'center',
+    fontSize: hp(2.6),
+    fontWeight: 'bold',
+    color: color.black,
+    textAlign: 'center'
   },
 });
+
 export default ProfileScreen;

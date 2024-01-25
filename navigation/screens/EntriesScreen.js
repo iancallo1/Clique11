@@ -1,125 +1,195 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ToastAndroid,  } from "react-native";
+import { Dimensions, StyleSheet, Text, View, TouchableOpacity, ToastAndroid, StatusBar } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import color from "../../assets/colors.js";
 import { TextInput } from "react-native-paper";
-import fetchServices from '../../services/fetchServices.js';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../config/firebase.js';
 import { useState } from "react";
-import firestore from '@react-native-firebase/firestore';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+const {height, width} = Dimensions.get('window');
 
 function EntriesScreen({ navigation }) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
 
-    const SubmitPost = async ()=>{
-      
+    const SubmitPost = async ()=>{  
     }
     return (
         <LinearGradient
-        style={{flex: 1}} colors={[color.second, color.white]}>
+        style={{flex: 1}} colors={[color.first, color.white]}>
+            <StatusBar backgroundColor={color.white} barStyle={"dark-content"}/>
+
             <View style={styles.container}>
-                <Text style={styles.head}>Be Clique!</Text>
-                <Text style={styles.text}>Post Your Group as a Clique!</Text>
-                
-            
-            <TextInput
-            style={styles.input}
-            placeholder=''
-            label='Group Name'
-            />
-            <TextInput
-            style={styles.input}
-            placeholder=''
-            label='Group Description'
-            value={email}
-            onChangeText={value=> setEmail(value)}
-        
-            />
-            <TextInput
-            style={styles.input}
-            placeholder=''
-            label='Schedule'
-            value={password}
-            onChangeText={value=> setPassword(value)}
- 
-            
-            />
-            <TextInput
-            style={styles.input}
-            placeholder=''
-            label='Group-Link'
-            value={repassword}
-            onChangeText={value=> setRepassword(value)}
- 
-            
-            />
+                <View style={styles.header}>
+                    <View style={styles.header1}>
+                        <Text style={styles.logo}>.Clique</Text>
+                    </View>
+                    <View style={styles.header2}>
+                        <Text style={styles.name}>Add Group</Text>
+                    </View>
+                </View>
 
-            <TouchableOpacity style={styles.button1} /*onPress={handleSubmit}*/ >
-                <Text style={styles.btntext1}>
-                    Add
-                </Text>
-            </TouchableOpacity>
+                <View style={styles.main}>
+                    <View style={styles.section1}>
+                        <Text style={styles.head}>Be Clique!</Text>
+                        <Text style={styles.text}>Post Your Group as a Clique!</Text>
+                    </View>
+                    <View style={styles.section2}>
+                        <TextInput
+                        style={styles.input}
+                        placeholder=''
+                        label='Group Name'
+                        underlineColor='transparent'
+                        />
+                        <TextInput
+                        style={styles.input}
+                        placeholder=''
+                        label='Group Description'
+                        underlineColor='transparent'
+                        value={email}
+                        onChangeText={value=> setEmail(value)}
+                        />
+                        <TextInput
+                        style={styles.input}
+                        placeholder=''
+                        label='Schedule'
+                        underlineColor='transparent'
+                        value={password}
+                        onChangeText={value=> setPassword(value)}
+                        />
+                        <TextInput
+                        style={styles.input}
+                        placeholder=''
+                        label='Group-Link'
+                        underlineColor='transparent'
+                        value={repassword}
+                        onChangeText={value=> setRepassword(value)}
+                        />
 
-           
-            
+                        <TouchableOpacity style={styles.button1} /*onPress={handleSubmit}*/ >
+                            <Text style={styles.btntext1}>
+                                Add
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                <View style={styles.footer}></View>
             </View>
         </LinearGradient>
     )
 }
 const styles = StyleSheet.create({
+    /* Container and Sections */
     container: {
-        marginHorizontal: 16,
-        padding: 20,
-        marginTop: 100,
+        height: hp(100),
+        backgroundColor: 'transparent',
     },
-    head: {
+    header: {
+        height: hp(10),
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    header1: {
+        width: wp(50),
+        backgroundColor: color.white,
+        justifyContent: 'center',
+    },
+    header2: {
+        width: wp(50),
+        backgroundColor: color.white,
+        justifyContent: 'center',
+    },
+    main: {
+        height: hp(80),
+        backgroundColor: 'transparent',
+    },
+    section1: {
+        height: hp(20),
+        backgroundColor: 'transparent',
+        justifyContent: 'center',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    section2: {
+        height: hp(60),
+        backgroundColor: 'transparent',
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    footer: {
+        height: hp(10),
+        backgroundColor: 'transparent',
+    },
+
+    /* Header */
+    logo: {
+        fontSize: hp(3.4),
+        color: color.first,
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
-        fontSize: 50,
-        color: 'white',
+        textAlign: 'left',
+        marginLeft: hp(2),
+    },
+    name: {
+        fontSize: hp(3.4),
+        color: color.black,
+        fontFamily: 'sans-serif',
+        fontWeight: 'bold',
+        textAlign: 'right',
+        marginRight: hp(2),
+    },  
+    head: {
+        fontSize: hp(4),
+        color: color.black,
+        fontFamily: 'sans-serif',
+        fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 10,
-        margin: 20,
+        marginRight: hp(2),
     },
     text: {
-        fontSize: 20,
-        color: 'white',
+        fontFamily: 'sans-serif',
+        fontSize: hp(2),
+        color: color.black,
         textAlign: 'center',
         margin: 10,
     },
+
+    /* Body */
+    input: {
+        fontFamily: 'sans-serif',
+        fontSize: hp(2.2), 
+        paddingVertical: 3,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        borderWidth: 3,
+        borderColor: color.grey,
+        backgroundColor: color.fifth,
+        margin: 10,
+        marginLeft: hp(2),
+        marginRight: hp(2),
+    },
     button1: {
-        backgroundColor: '#00B8A9',
-        borderRadius: 6,
+        backgroundColor: color.first,
+        borderRadius: 50,
         paddingVertical: 12,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 25,
-        marginLeft: 100,
-        marginRight: 100,
+        marginTop: hp(1.6),
+        marginLeft: 90,
+        marginRight: 90,
     },
     btntext1: {
         fontFamily: 'sans-serif',
-        fontSize: 20,
+        fontSize: hp(2.6),
         fontWeight: 'bold',
-        color: 'white',
+        color: color.black,
         textAlign: 'center'
     },
-    input: {
-        paddingVertical: 2,
-        paddingHorizontal: 8,
-        borderWidth: 3, 
-        borderColor: '#9BBEC8', 
-        borderRadius: 6,
-        margin: 8,
-        fontFamily: 'sans-serif',
-        fontSize: 20, 
-        backgroundColor: 'white',
-    }
 });
 
 export default EntriesScreen;
