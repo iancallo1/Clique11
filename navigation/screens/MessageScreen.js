@@ -15,6 +15,7 @@ import {
   TextSection,
 } from './styles/MessageStyles';
 
+
 const Messages = [
   {
     id: '1',

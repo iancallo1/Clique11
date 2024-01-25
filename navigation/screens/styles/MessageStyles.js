@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const Container = styled.View`
   flex: 1;
   padding: 20px;
@@ -48,13 +49,12 @@ export const UserInfoText = styled.View`
 export const UserName = styled.Text`
   font-size: 14px;
   font-weight: bold;
-  font-family: 'Lato-Regular';
 `;
 
 export const PostTime = styled.Text`
   font-size: 12px;
   color: #666;
-  font-family: 'Lato-Regular';
+  font-family: 'monospace';
 `;
 
 export const MessageText = styled.Text`

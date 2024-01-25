@@ -7,11 +7,13 @@ import Home from './screens/HomeScreen';
 import Add from './screens/EntriesScreen';
 import Settings from './screens/SettingsScreen';
 import Message from './screens/MessageScreen';
+import Calendar from './screens/SchedulerScreen';
 // Screen names
 const homeName = "Home";
 const detailsName = "Clique In";
 const settingsName = "Settings";
 const MessageName = "Message";
+const CalendarName = "Calendar";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,6 +35,8 @@ function MainContainer() {
             iconName = focused ? 'person' : 'person-outline';
           } else if (rn === MessageName) {
             iconName = focused ? 'chatbubble-ellipses' : 'chatbubble-ellipses-outline';
+          } else if (rn === CalendarName) {
+            iconName = focused ? 'calendar' : 'calendar-outline';
           } 
 
           // You can return any component that you like here!
@@ -48,6 +52,7 @@ function MainContainer() {
 
       <Tab.Screen options={{ headerShown: false }}  name={homeName} component={Home} />
       <Tab.Screen options={{ headerShown: false }}  name={MessageName} component={Message} />
+      <Tab.Screen options={{ headerShown: false }}  name={CalendarName} component={Calendar} />
       <Tab.Screen options={{ headerShown: false }}  name={detailsName} component={Add} />
       <Tab.Screen options={{ headerShown: false }}  name={settingsName} component={Settings} />
 

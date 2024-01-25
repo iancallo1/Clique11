@@ -11,22 +11,51 @@ import {
 } from 'react-native';
 import { LinearGradient } from'expo-linear-gradient';
 import color from '../../assets/colors';
-import { auth } from '../../config/firebase.js';
-import { firestore } from '@react-native-firebase/firestore';
-function ProfileScreen(props) {
-  console.log(props);
+import { auth, database } from '../../config/firebase.js';
+import { doc, getDoc, firestore, collection} from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
-  const [username, setUsername] = useState('');
+
+function ProfileScreen(props) {
+  const [name, setName] = useState(null);
+  
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const userDoc = await firestore().collection('users').doc(/**/).get();
-      const userData = userDoc.data();
-      setUsername(userData.username);
+      const usersCollection = collection(database, "users");
+      console.log('Auth UID:', auth.currentUser.uid);
+      const currentUserDoc = doc(usersCollection, auth.currentUser.uid);
+    
+      try {
+        const snapshot = await getDoc(currentUserDoc);
+        console.log('User Document Snapshot:', snapshot);
+  
+        if (snapshot.exists()) {
+          const userData = snapshot.data();
+          console.log('User Data:', userData);
+  
+          if (userData && userData.hasOwnProperty('name')) {
+            const userName = userData.name;
+            setName(userName);
+          } else {
+            console.log('User document does not contain a "name" field:', userData);
+          }
+        } else {
+          console.log('User data not found');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
     };
-
+  
     fetchUserData();
   }, []);
+  
+  
+  
+  
+  
 
   const handleLogout = async () => {
     try {
@@ -44,7 +73,7 @@ function ProfileScreen(props) {
          <View style={styles.logoContainer}>
                     <Text style={styles.logoText}>.Clique</Text>
                 </View>
-        <Text style={styles.head}>Hello! {username}!</Text>
+        <Text style={styles.head}>Hello {name ? name : 'user'}! </Text>
         <Text style={styles.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.

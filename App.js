@@ -17,7 +17,7 @@ import Chat1Screen from './navigation/screens/chat_screens/Chat1Screen';
 import Chat2Screen from './navigation/screens/chat_screens/Chat2Screen';
 import Chat3Screen from './navigation/screens/chat_screens/Chat3Screen';
 import Chat4Screen from './navigation/screens/chat_screens/Chat4Screen';
-
+import Scheduler from './navigation/screens/SchedulerScreen';
 export default function App() {
   const Stack = createNativeStackNavigator();
   const { user } = useAuth;
@@ -45,6 +45,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name='Clique' component={CliqueExperiment} />
             <Stack.Screen options={{ headerShown: false }} name='MainContainer' component={MainContainer} />
             <Stack.Screen options={{ headerShown: false }} name='Message' component={MessagesScreen} />
+            <Stack.Screen options={{ headerShown: false }} name='Calendar' component={Scheduler} />
             <Stack.Screen name='General Chat' component={ChatScreen} />
             <Stack.Screen name='SE Chat' component={Chat1Screen} />
             <Stack.Screen name='IOT Chat' component={Chat2Screen} />
