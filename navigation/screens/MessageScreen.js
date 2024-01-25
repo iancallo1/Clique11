@@ -72,7 +72,7 @@ const MessagesScreen = ({navigation}) => {
       <LinearGradient
         style={{flex: 1}} colors={[color.first, color.white]}>
           <StatusBar backgroundColor={color.third} barStyle={"dark-content"}/>
-          <ScrollView>
+          
           <View style={styles.container}>
               <View style={styles.header}>
                 <View style={styles.header1}>
@@ -114,7 +114,7 @@ const MessagesScreen = ({navigation}) => {
 
               <View style={styles.footer}></View>
             </View>
-          </ScrollView> 
+          
       </LinearGradient>
     );
 };
@@ -124,7 +124,7 @@ export default MessagesScreen;
 const styles = StyleSheet.create({
    /* Container and Sections */
   container: {
-    height: hp(100),
+    height: hp(90),
     backgroundColor: 'transparent',
   },
   header: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent',
   },
   section1: {
-      height: hp(70),
+      height: hp(80),
       backgroundColor: "transparent",
       justifyContent: 'center',
   },

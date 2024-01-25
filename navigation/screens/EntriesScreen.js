@@ -5,15 +5,47 @@ import color from "../../assets/colors.js";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const {height, width} = Dimensions.get('window');
 
 function EntriesScreen({ navigation }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [repassword, setRepassword] = useState("");
+    const [groupName, setGroupName] = useState("");
+    const [description, setDescription] = useState("");
+    const [sched, setSchedule] = useState("");
+    const [link, setLink] = useState("");
+    const handleSubmitPost = async ()=>{  
+        if (groupName && description && sched && link) {
+            try {
+              // Save group information to Firestore
+              const db = getFirestore();
+              const groupsCollection = collection(db, 'posts');
+      
+              // Add a new document with a generated ID
+              await addDoc(groupsCollection, {
+                groupName: groupName,
+                description: description,
+                schedule: sched,
+                link: link,
+                // Add any other group information you want to store
+              });
 
-    const SubmitPost = async ()=>{  
+              console.log('Group successfully added!');
+              setGroupName('');
+              setDescription('');
+              setSchedule('');
+              setLink('');
+      
+              // Optionally, you can navigate to another screen after successful submission
+              // navigation.navigate('SomeScreen');
+            } catch (err) {
+              console.log('Error:', err.message);
+              // Handle error, show a message to the user, etc.
+            }
+          } else {
+            // Handle the case when some fields are empty
+            console.log('All fields are required');
+          }
     }
     return (
         <LinearGradient
@@ -36,39 +68,40 @@ function EntriesScreen({ navigation }) {
                         <Text style={styles.text}>Post Your Group as a Clique!</Text>
                     </View>
                     <View style={styles.section2}>
-                        <TextInput
-                        style={styles.input}
-                        placeholder=''
-                        label='Group Name'
-                        underlineColor='transparent'
-                        />
-                        <TextInput
-                        style={styles.input}
-                        placeholder=''
-                        label='Group Description'
-                        underlineColor='transparent'
-                        value={email}
-                        onChangeText={value=> setEmail(value)}
-                        />
-                        <TextInput
-                        style={styles.input}
-                        placeholder=''
-                        label='Schedule'
-                        underlineColor='transparent'
-                        value={password}
-                        onChangeText={value=> setPassword(value)}
-                        />
-                        <TextInput
-                        style={styles.input}
-                        placeholder=''
-                        label='Group-Link'
-                        underlineColor='transparent'
-                        value={repassword}
-                        onChangeText={value=> setRepassword(value)}
-                        />
+                    <TextInput
+            style={styles.input}
+            placeholder=''
+            label='Group Name'
+            value={groupName}
+            onChangeText={value=> setGroupName (value)} 
+            />
+            <TextInput
+            style={styles.input}
+            placeholder=''
+            label='Group Description'
+            value={description}
+            onChangeText={value=> setDescription(value)}
+        
+            />
+            <TextInput
+            style={styles.input}
+            placeholder=''
+            label='Schedule'
+            value={sched}
+            onChangeText={value=> setSchedule(value)}
+ 
+            
+            />
+            <TextInput
+            style={styles.input}
+            placeholder=''
+            label='Group-Link'
+            value={link}
+            onChangeText={value=> setLink(value)}
+            />
 
-                        <TouchableOpacity style={styles.button1} /*onPress={handleSubmit}*/ >
-                            <Text style={styles.btntext1}>
+            <TouchableOpacity style={styles.button1} onPress={handleSubmitPost}>
+                <Text style={styles.btntext1}>
                                 Add
                             </Text>
                         </TouchableOpacity>

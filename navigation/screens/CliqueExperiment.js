@@ -1,60 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dimensions, View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import color from "../../assets/colors";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { doc, getDocs, firestore, collection,query,where,} from 'firebase/firestore';
+import { auth, database } from '../../config/firebase.js';
+import { Linking } from 'react-native';
+
 
 const {height, width} = Dimensions.get('window');
 
 const Clique = () => {
+
+  const [allPosts, setAllPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      const querySnapshot = await getDocs(collection(database, 'posts'));
+      const newPosts = [];
+      querySnapshot.forEach((doc) => {
+        newPosts.push({ id: doc.id, ...doc.data() });
+      });
+      setAllPosts(newPosts);
+    };
+    fetchAllPosts();
+  }, []);
   return (
-  <LinearGradient
-        style={{flex: 1}} colors={[color.second, color.white]}>
-          <View style={styles.container}>
-            <View style={styles.header}>
-              <View style={styles.header1}>
-                <Text style={styles.logo}>.Clique</Text>
-              </View>
-              <View style={styles.header2}>
-                <Text style={styles.name}>Groups</Text>
-              </View>
-            </View>
+    <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
+    {/* ... (rest of your existing code) */}
 
-            <View style={styles.main}>
-              <View style={styles.section1}>
-                <Text style={styles.time}>9:41</Text>
-              </View>
+    
+      <View style={styles.activityContent}>
+        {/* Display all user's posts */}
+        {allPosts.map((post) => (
+          <View key={post.id} style={styles.postContainer}>
+            <Text style={styles.groupName}>{post.groupName}</Text>
+            <Text style={styles.groupDesc}>{post.description}</Text>
+            <Text style={styles.schedule}>{post.schedule}</Text>
+            <Text style={styles.link}>{post.link}</Text>
+            {/* Add more Text components for other post details */}
+          </View>
+        ))}
+      </View>
+    
 
-              <View style={styles.section2}>
-                <TouchableOpacity style={styles.group}>
-                  <Text style={styles.groupName}>Wise Owls</Text>
-                  <Text style={styles.groupDesc}>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.group}>
-                  <Text style={styles.groupName}>Novel Navigators</Text>
-                  <Text style={styles.groupDesc}>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.group}>
-                  <Text style={styles.groupName}>Austere Aspirants</Text>
-                  <Text style={styles.groupDesc}>
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                  </Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.section3}>
-                <TouchableOpacity style={styles.button1}>
-                  <Text style={styles.btntext1}>Join</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.footer}></View>      
-    </View>
+    
   </LinearGradient>
   );
 };
@@ -163,6 +153,14 @@ const styles = StyleSheet.create({
     color: color.black,
   },
   groupDesc: {
+    fontSize: hp(1.8),
+    color: color.black,
+  },
+    schedule: {
+    fontSize: hp(1.8),
+    color: color.black,
+  },
+    link: {
     fontSize: hp(1.8),
     color: color.black,
   },
