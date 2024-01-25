@@ -47,7 +47,7 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name='Signup' component={SignupScreen} />
             <Stack.Screen options={{ headerShown: false }} name='Home' component={HomeScreen} />
             <Stack.Screen options={{ headerShown: false }} name='Recovery' component={RecoveryScreen} />
-            <Stack.Screen options={{ headerShown: false }} name='Clique' component={CliqueExperiment} />
+            <Stack.Screen  name='Clique' component={CliqueExperiment} />
             <Stack.Screen options={{ headerShown: false }} name='MainContainer' component={MainContainer} />
             <Stack.Screen options={{ headerShown: false }} name='Message' component={MessagesScreen} />
             <Stack.Screen options={{ headerShown: false }} name='Calendar' component={Scheduler} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, StatusBar,ScrollView } from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import color from "../../assets/colors";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -25,27 +25,26 @@ const Clique = () => {
     };
     fetchAllPosts();
   }, []);
+
   return (
-    <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
-    {/* ... (rest of your existing code) */}
+    <ScrollView style={{ flex: 1 }}>
+      <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
+        {/* ... (rest of your existing code) */}
 
-    
-      <View style={styles.activityContent}>
-        {/* Display all user's posts */}
-        {allPosts.map((post) => (
-          <View key={post.id} style={styles.postContainer}>
-            <Text style={styles.groupName}>{post.groupName}</Text>
-            <Text style={styles.groupDesc}>{post.description}</Text>
-            <Text style={styles.schedule}>{post.schedule}</Text>
-            <Text style={styles.link}>{post.link}</Text>
-            {/* Add more Text components for other post details */}
-          </View>
-        ))}
-      </View>
-    
-
-    
-  </LinearGradient>
+        <View style={styles.activityContent}>
+          {/* Display all user's posts */}
+          {allPosts.map((post) => (
+            <View key={post.id} style={styles.postContainer}>
+              <Text style={styles.groupName}>{post.groupName}</Text>
+              <Text style={styles.groupDesc}>{post.description}</Text>
+              <Text style={styles.schedule}>{post.schedule}</Text>
+              <Text style={styles.link}>{post.link}</Text>
+              {/* Add more Text components for other post details */}
+            </View>
+          ))}
+        </View>
+      </LinearGradient>
+    </ScrollView>
   );
 };
 
@@ -164,6 +163,14 @@ const styles = StyleSheet.create({
     fontSize: hp(1.8),
     color: color.black,
   },
+  postContainer: {
+    borderBottomWidth: 1, // Add this line to add a border
+    borderBottomColor: color.black, // Set the border color as per your design
+    marginBottom: hp(1), // Add some margin to separate posts
+    paddingBottom: hp(1), // Add padding to give space after the border
+    marginLeft:hp(3),
+  },
 });
+
 
 export default Clique;
