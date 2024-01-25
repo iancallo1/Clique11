@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, StatusBar,ScrollView } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, TouchableOpacity, StatusBar,ScrollView,Linking } from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
 import color from "../../assets/colors";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { doc, getDocs, firestore, collection,query,where,} from 'firebase/firestore';
 import { auth, database } from '../../config/firebase.js';
-import { Linking } from 'react-native';
+
 
 
 const {height, width} = Dimensions.get('window');
@@ -26,6 +26,10 @@ const Clique = () => {
     fetchAllPosts();
   }, []);
 
+  const pressLink = (url) => {
+    Linking.openURL(url);
+  };
+
   return (
     <ScrollView style={{ flex: 1 }}>
       <LinearGradient style={{ flex: 1 }} colors={[color.second, color.white]}>
@@ -38,7 +42,9 @@ const Clique = () => {
               <Text style={styles.groupName}>{post.groupName}</Text>
               <Text style={styles.groupDesc}>{post.description}</Text>
               <Text style={styles.schedule}>{post.schedule}</Text>
-              <Text style={styles.link}>{post.link}</Text>
+              <TouchableOpacity onPress={() => pressLink(post.link)}>
+                    <Text style={styles.link}>{post.link}</Text>
+              </TouchableOpacity>
               {/* Add more Text components for other post details */}
             </View>
           ))}
