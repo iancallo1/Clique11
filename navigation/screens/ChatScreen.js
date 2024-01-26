@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
+
 const ChatScreen = () => {
   const [messages, setMessages] = useState([]);
 
@@ -57,34 +58,37 @@ const ChatScreen = () => {
   };
 
   const renderBubble = (props) => {
+    console.log('user object:', props.currentMessage.user);
     return (
       <Bubble
-      {...props}
-      wrapperStyle={{
-        left: {
-          backgroundColor: '#fff', 
-        },
-        right: {
-          backgroundColor: '#00B8A9', 
-        },
-      }}
-      textStyle={{
-        left: {
-          color: '#000', // Set the text color for received messages
-        },
-        right: {
-          color: '#fff', // Set the text color for sent messages
-        },
-      }}
-    >
-      {/* Display sender's email address for all messages */}
-      {props.position === 'left' && (
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ color: '#fff', fontSize: 12, marginRight: 5 }}>{props.currentMessage.user._id}</Text>
-          {props.children}
-        </View>
-      )}
-      {props.position === 'right' && props.children}
+        {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: '#fff', 
+          },
+          right: {
+            backgroundColor: '#00B8A9', 
+          },
+        }}
+        textStyle={{
+          left: {
+            color: '#000', // Set the text color for received messages
+          },
+          right: {
+            color: '#fff', // Set the text color for sent messages
+          },
+        }}
+      >
+        {/* Display sender's username for all messages */}
+        {props.position === 'left' && (
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ color: '#fff', fontSize: 12, marginRight: 5 }}>
+              {props.currentMessage.user?._id?.split('@')[0] || 'Unknown User'}
+            </Text>
+            {props.children}
+          </View>
+        )}
+        {props.position === 'right' && props.children}
     </Bubble>
     
     );
