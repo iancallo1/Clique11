@@ -34,7 +34,7 @@ const Messages = [
     userImg: require('../../assets/softeng.png'),
     messageTime: ' 4 mins ago',
     messageText:
-      'Software Engineering Chat: Where bugs are just unexpected features waiting to be discovered!',
+      'Where bugs are just unexpected features waiting to be discovered!',
       screen:'SE Chat',
   },
   {
@@ -85,8 +85,9 @@ const MessagesScreen = ({navigation}) => {
 
               <View style={styles.main}>
                 <View style={styles.section1}>
-                  <Container>
                   <FlatList
+                  marginLeft={15}
+                  marginRight={20}
                     data={Messages}
                     keyExtractor={item=>item.id}
                     renderItem={({item}) => (
@@ -106,7 +107,6 @@ const MessagesScreen = ({navigation}) => {
                       </Card>
                     )}
                   />
-                  </Container>
                 </View>
 
                 <View style={styles.section2}></View>
@@ -124,7 +124,7 @@ export default MessagesScreen;
 const styles = StyleSheet.create({
    /* Container and Sections */
   container: {
-    height: hp(90),
+    height: hp(100),
     backgroundColor: 'transparent',
   },
   header: {

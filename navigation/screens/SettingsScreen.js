@@ -12,6 +12,7 @@ import {
   StatusBar, 
 } from 'react-native';
 import { LinearGradient } from'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import color from '../../assets/colors';
 import { auth, database } from '../../config/firebase.js';
 import { doc, getDocs, firestore, collection,query,where,} from 'firebase/firestore';
@@ -72,15 +73,26 @@ function ProfileScreen(props) {
         <View style={styles.main}>
           <View style={styles.section1}>
             <Image style={styles.profileicon} source={require('../../assets/profile.png')}></Image>
-            <Text style={styles.name}>Hello {userData?.name}!</Text>
+            <Text style={styles.head}>Hello {userData?.name}!</Text>
             <Text style={styles.text}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Study smarter, connect deeper. {"\n"} Collaborative learning for academic 
+            success and lasting friendships.
             </Text>
-            <Text style={styles.text}>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
-            </Text>
+            <Text style={styles.text}> Elevate your journey together!</Text>
+ 
+            <View style={styles.info}>
+              <Icon marginLeft={15} name="cake" color="#00000" size={30}/>
+              <Text style={styles.infotext}>Age: {userData?.age}</Text>
+            </View>   
+            <View style={styles.info}>
+              <Icon marginLeft={15} name="bookshelf" color="#00000" size={30}/>
+              <Text style={styles.infotext}>Section: {userData?.section}</Text>
+            </View>
+            <View style={styles.info}>
+              <Icon marginLeft={15} name="medal" color="#00000" size={30}/>
+              <Text style={styles.infotext}>Year Level: {userData?.yearlevel}</Text>
+            </View>
+
           </View>
 
           <View style={styles.section2}>
@@ -122,18 +134,35 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   section1: {
-    height: hp(50),
+    height: hp(60),
     backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
   },
   section2: {
-    height: hp(30),
+    height: hp(20),
     backgroundColor: 'transparent',
   },
   footer: {
     height: hp(10),
     backgroundColor: color.white,
+  },
+
+  info: {
+    width: 250,
+    flexDirection: 'row',
+    paddingVertical: 6,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    borderWidth: 3,
+    borderColor: color.first,
+    backgroundColor: color.white,
+    margin: 8,
+    marginLeft: hp(2),
+    marginRight: hp(2),
+    alignItems: 'center',
   },
 
   /* Header */
@@ -154,13 +183,11 @@ const styles = StyleSheet.create({
     marginRight: hp(2),
   }, 
   head: {
-    fontSize: hp(6),
+    fontSize: hp(3.4),
     color: color.black,
     fontFamily: 'sans-serif',
     fontWeight: 'bold',
-    textAlign: 'center',
-    justifyContent: 'center',
-    marginRight: hp(2),
+    textAlign: 'right',
   },
   text: {
     fontFamily: 'sans-serif',
@@ -168,6 +195,13 @@ const styles = StyleSheet.create({
     color: color.black,
     textAlign: 'center',
     margin: 10,
+  },
+  infotext: {
+    fontFamily: 'sans-serif',
+    fontSize: 18,
+    color: color.black,
+    justifyContent: 'center',
+    textAlign: 'center',
   },
   profileicon: {
     width: wp(20),

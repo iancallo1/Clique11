@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View, Button, TouchableOpacity, StatusBar } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Button, TouchableOpacity, StatusBar, Image } from 'react-native';
 import { LinearGradient } from "expo-linear-gradient";
 import color from "../../assets/colors";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -28,8 +28,9 @@ function HomeScreen(props) {
                     <View style={styles.section1}>
                         {/* Rest of the content */}
                         <Text style={styles.head}>Hello There!</Text>
-                        <Text style={styles.text}>Welcome to CLIQUE! Your friend in making friends!</Text>
-                        <Text style={styles.text}>Discover circles, share ideas, meet in real life, 
+                        <Text style={styles.text1}>Welcome to CLIQUE! {"\n"} Your friend in making friends!</Text>
+                        <Image style={styles.profileicon} source={require('../../assets/mrClick.png')}></Image>
+                        <Text style={styles.text2}>Discover circles, share ideas, meet in real life, 
                         and really 'clique' with them!</Text>
                     </View>
                     <View style={styles.section2}>
@@ -76,12 +77,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     section1: {
-        height: hp(50),
+        height: hp(60),
         backgroundColor: 'transparent',
         justifyContent: 'center',
+        alignItems: 'center',
     },
     section2: {
-        height: hp(30),
+        height: hp(20),
         backgroundColor: 'transparent',
     },
     footer: {
@@ -112,16 +114,28 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
         textAlign: 'center',
-        marginRight: hp(2),
     },
+    profileicon: {
+        width: 300,
+        height: 160,
+        justifyContent: 'center',
+      },
 
     /* Body */
-    text: {
+    text1: {
         fontSize: hp(2),
         color: 'black',
         fontFamily: 'sans-serif',
         textAlign: 'center',
         margin: hp(2),
+    },
+    text2: {
+        fontSize: hp(2),
+        color: 'black',
+        fontFamily: 'sans-serif',
+        textAlign: 'center',
+        margin: hp(2),
+        marginTop: 55,
     },
     button: {
         backgroundColor: color.first,

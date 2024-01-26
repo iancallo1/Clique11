@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View, TouchableOpacity, ToastAndroid,  } from "react-native";
+import { Dimensions, StyleSheet, Text, View, TouchableOpacity, ToastAndroid, ScrollView,  } from "react-native";
 import {LinearGradient} from "expo-linear-gradient";
 import color from "../../assets/colors.js";
 import { TextInput } from "react-native-paper";
@@ -15,6 +15,9 @@ const {height, width} = Dimensions.get('window');
 
 function SignupScreen({ navigation }) {
     const [name, setName] = useState('');
+    const [age, setAge] = useState('');
+    const [section, setSection] = useState("");
+    const [yearlevel, setYear] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
@@ -39,12 +42,18 @@ function SignupScreen({ navigation }) {
               uid: user.uid,
               name: name, // Add user's name here
               email: email,
+              age: age, 
+              section: section,
+              yearlevel: yearlevel,
               // Add any other user information you want to store
             });
 
             setName('');
             setEmail('');
             setPassword('');
+            setAge('');
+            setSection('');
+            setYear('');
             setRepassword('');
       
             navigation.navigate('Login');
@@ -69,6 +78,7 @@ function SignupScreen({ navigation }) {
 
                 <View style={styles.main}>
                   <View style={styles.section1}>
+                    <ScrollView>
                     <TextInput
                       style={styles.input}
                       placeholder=''
@@ -76,6 +86,30 @@ function SignupScreen({ navigation }) {
                       underlineColor='transparent'
                       value={name}
                       onChangeText={(value) => setName(value)}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder=''
+                      label='Age'
+                      underlineColor='transparent'
+                      value={age}
+                      onChangeText={value=> setAge(value)}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder=''
+                      label='Section'
+                      underlineColor='transparent'
+                      value={section}
+                      onChangeText={value=> setSection(value)}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder=''
+                      label='Year Level'
+                      underlineColor='transparent'
+                      value={yearlevel}
+                      onChangeText={value=> setYear(value)}
                     />
                     <TextInput
                       style={styles.input}
@@ -117,6 +151,7 @@ function SignupScreen({ navigation }) {
                       onChangeText={setRepassword}
                       error={errors?.repassword}
                       />
+                      </ScrollView>
                   </View>
 
                   <View style={styles.section2}>

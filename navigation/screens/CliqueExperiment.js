@@ -117,6 +117,9 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: hp(2),
   },  
+  activityContent: {
+    marginTop: 20,
+  },
 
   /* Body */
   time: {
@@ -167,7 +170,7 @@ const styles = StyleSheet.create({
   },
     link: {
     fontSize: hp(1.8),
-    color: color.black,
+    color: color.fourth,
   },
   postContainer: {
     borderBottomWidth: 1, // Add this line to add a border
@@ -175,6 +178,7 @@ const styles = StyleSheet.create({
     marginBottom: hp(1), // Add some margin to separate posts
     paddingBottom: hp(1), // Add padding to give space after the border
     marginLeft:hp(3),
+    marginRight:hp(3),
   },
 });
 
