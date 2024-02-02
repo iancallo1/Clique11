@@ -8,16 +8,19 @@ import Add from './screens/EntriesScreen';
 import Settings from './screens/SettingsScreen';
 import Message from './screens/MessageScreen';
 import Calendar from './screens/SchedulerScreen';
+import { LogBox } from "react-native";
 // Screen names
 const homeName = "Home";
 const detailsName = "Clique In";
-const settingsName = "Settings";
+const settingsName = "Profile";
 const MessageName = "Message";
 const CalendarName = "Calendar";
 
 const Tab = createBottomTabNavigator();
 
 function MainContainer() {
+
+  LogBox.ignoreAllLogs();
   return (
     <Tab.Navigator
       initialRouteName={homeName}

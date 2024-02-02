@@ -66,7 +66,7 @@ function ProfileScreen(props) {
           </View>
 
           <View style={styles.header2}>
-            <Text style={styles.name}>Settings</Text>
+            <Text style={styles.name}>Profile</Text>
           </View>
         </View>
 

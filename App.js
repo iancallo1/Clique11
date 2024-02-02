@@ -20,12 +20,15 @@ import Chat2Screen from './navigation/screens/chat_screens/Chat2Screen';
 import Chat3Screen from './navigation/screens/chat_screens/Chat3Screen';
 import Chat4Screen from './navigation/screens/chat_screens/Chat4Screen';
 import Scheduler from './navigation/screens/SchedulerScreen';
+import { LogBox } from "react-native";
 
 const {height, width} = Dimensions.get('window');
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const { user } = useAuth;
+
+  LogBox.ignoreAllLogs();
 
   if (user) {
     return (
